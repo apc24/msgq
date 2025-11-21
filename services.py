@@ -38,6 +38,9 @@ services: dict[str, tuple] = {
   "radarState": (True, 20., 5),
   "roadEncodeIdx": (False, 20., 1),
   "liveTracks": (True, 20.),
+  
+  "e2eOutput": (True, 10.),
+
   "sendcan": (True, 100., 139),
   "logMessage": (True, 0.),
   "errorLogMessage": (True, 0., 1),

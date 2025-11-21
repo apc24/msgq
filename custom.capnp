@@ -37,3 +37,10 @@ struct CustomReserved8 @0xf416ec09499d9d19 {
 
 struct CustomReserved9 @0xa1680744031fdb2d {
 }
+
+struct E2EOutput @0xe2e0e2e0e2e0e2e0 {
+	aEgo @0 :Float32;           # 加速度指令
+	steeringTorque @1 :Float32; # ステアリングトルク指令
+	timestamp @2 :UInt64;       # 生成時刻（ナノ秒）
+    isValid @3 :Bool;           # 有効フラグ
+}
