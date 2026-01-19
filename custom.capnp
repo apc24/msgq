@@ -44,4 +44,5 @@ struct E2EOutput @0xe2e0e2e0e2e0e2e0 {
 	steeringAngleDeg @2 :Float32; # ステアリング角度指令
 	timestamp @3 :UInt64;       # 生成時刻（ナノ秒）
 	isValid @4 :Bool;           # 有効フラグ
+	vEgoPlans @5 :List(Float32); # 速度計画（10ステップ）
 }
