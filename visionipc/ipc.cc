@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <assert.h>
 #include <errno.h>
+#include <vector>
 
 #include <sys/mman.h>
 #include <sys/socket.h>
@@ -17,18 +18,21 @@
 
 #include "cereal/visionipc/ipc.h"
 
-int ipc_connect(const char* socket_path) {
+int ipc_connect(const char *socket_path)
+{
   int err;
 
   int sock = getsocket();
 
-  if (sock < 0) return -1;
+  if (sock < 0)
+    return -1;
   struct sockaddr_un addr = {
-    .sun_family = AF_UNIX,
+      .sun_family = AF_UNIX,
   };
   snprintf(addr.sun_path, sizeof(addr.sun_path), "%s", socket_path);
-  err = connect(sock, (struct sockaddr*)&addr, sizeof(addr));
-  if (err != 0) {
+  err = connect(sock, (struct sockaddr *)&addr, sizeof(addr));
+  if (err != 0)
+  {
     close(sock);
     return -1;
   }
@@ -36,7 +40,8 @@ int ipc_connect(const char* socket_path) {
   return sock;
 }
 
-int ipc_bind(const char* socket_path) {
+int ipc_bind(const char *socket_path)
+{
   int err;
 
   unlink(socket_path);
@@ -44,7 +49,7 @@ int ipc_bind(const char* socket_path) {
   int sock = getsocket();
 
   struct sockaddr_un addr = {
-    .sun_family = AF_UNIX,
+      .sun_family = AF_UNIX,
   };
   snprintf(addr.sun_path, sizeof(addr.sun_path), "%s", socket_path);
   err = bind(sock, (struct sockaddr *)&addr, sizeof(addr));
@@ -56,30 +61,33 @@ int ipc_bind(const char* socket_path) {
   return sock;
 }
 
-
-int ipc_sendrecv_with_fds(bool send, int fd, void *buf, size_t buf_size, int* fds, int num_fds,
-                          int *out_num_fds) {
-  char control_buf[CMSG_SPACE(sizeof(int) * num_fds)];
-  memset(control_buf, 0, CMSG_SPACE(sizeof(int) * num_fds));
+int ipc_sendrecv_with_fds(bool send, int fd, void *buf, size_t buf_size, int *fds, int num_fds,
+                          int *out_num_fds)
+{
+  const size_t control_len = num_fds > 0 ? CMSG_SPACE(sizeof(int) * num_fds) : 0;
+  std::vector<char> control_buf(control_len, 0);
 
   struct iovec iov = {
-    .iov_base = buf,
-    .iov_len = buf_size,
+      .iov_base = buf,
+      .iov_len = buf_size,
   };
   struct msghdr msg = {
-    .msg_iov = &iov,
-    .msg_iovlen = 1,
+      .msg_iov = &iov,
+      .msg_iovlen = 1,
   };
 
-  if (num_fds > 0) {
+  if (num_fds > 0)
+  {
     assert(fds);
 
-    msg.msg_control = control_buf;
-    msg.msg_controllen = CMSG_SPACE(sizeof(int) * num_fds);
+    msg.msg_control = control_buf.data();
+    msg.msg_controllen = control_len;
   }
 
-  if (send) {
-    if (num_fds) {
+  if (send)
+  {
+    if (num_fds)
+    {
       struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
       assert(cmsg);
       cmsg->cmsg_level = SOL_SOCKET;
@@ -88,12 +96,16 @@ int ipc_sendrecv_with_fds(bool send, int fd, void *buf, size_t buf_size, int* fd
       memcpy(CMSG_DATA(cmsg), fds, sizeof(int) * num_fds);
     }
     return sendmsg(fd, &msg, 0);
-  } else {
+  }
+  else
+  {
     int r = recvmsg(fd, &msg, 0);
-    if (r < 0) return r;
+    if (r < 0)
+      return r;
 
     int recv_fds = 0;
-    if (msg.msg_controllen > 0) {
+    if (msg.msg_controllen > 0)
+    {
       struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
       assert(cmsg);
       assert(cmsg->cmsg_level == SOL_SOCKET && cmsg->cmsg_type == SCM_RIGHTS);
@@ -105,14 +117,17 @@ int ipc_sendrecv_with_fds(bool send, int fd, void *buf, size_t buf_size, int* fd
       memcpy(fds, CMSG_DATA(cmsg), sizeof(int) * recv_fds);
     }
 
-    if (msg.msg_flags) {
-      for (int i=0; i<recv_fds; i++) {
+    if (msg.msg_flags)
+    {
+      for (int i = 0; i < recv_fds; i++)
+      {
         close(fds[i]);
       }
       return -1;
     }
 
-    if (fds) {
+    if (fds)
+    {
       assert(out_num_fds);
       *out_num_fds = recv_fds;
     }
