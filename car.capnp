@@ -164,6 +164,7 @@ struct CarState {
   yawRate @22 :Float32;     # best estimate of yaw rate
   standstill @18 :Bool;
   wheelSpeeds @2 :WheelSpeeds;
+  wheelSpeedPulseCumulative @48 :WheelSpeedPulseCumulative;
 
   # gas pedal, 0.0-1.0
   gas @3 :Float32;        # this is user pedal only
@@ -225,6 +226,14 @@ struct CarState {
     fr @1 :Float32;
     rl @2 :Float32;
     rr @3 :Float32;
+  }
+
+  struct WheelSpeedPulseCumulative {
+    # optional wheel speed pulse cumulative
+    fl @0 :UInt8;
+    fr @1 :UInt8;
+    rl @2 :UInt8;
+    rr @3 :UInt8;
   }
 
   struct CruiseState {
