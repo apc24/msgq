@@ -7,6 +7,14 @@ $Cxx.namespace("cereal");
 # These structs are guaranteed to remain reserved and empty in mainline
 # cereal, so use these if you want custom events in your fork.
 
+# Custom debug message encoded into customReservedRawData* services.
+struct DebugPublishMessage @0xf57131e6ecf8b7be {
+	sequence @0 :UInt64;
+	sender @1 :Text;
+	text @2 :Text;
+	wallTimeNanos @3 :UInt64;
+}
+
 # you can rename the struct, but don't change the identifier
 struct CustomReserved0 @0x81c2f05a394cf4af {
 }
