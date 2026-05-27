@@ -16,7 +16,9 @@ struct DebugPublishMessage @0xf57131e6ecf8b7be {
 }
 
 # you can rename the struct, but don't change the identifier
-struct CustomReserved0 @0x81c2f05a394cf4af {
+struct E2EOutput @0x81c2f05a394cf4af {
+	vEgo @0 :Float32;         # 車速 [m/s]
+	steeringAngleDeg @1 :Float32; # 舵角 [deg]
 }
 
 struct CustomReserved1 @0xaedffd8f31e7b55d {
