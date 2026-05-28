@@ -17,8 +17,12 @@ struct DebugPublishMessage @0xf57131e6ecf8b7be {
 
 # you can rename the struct, but don't change the identifier
 struct E2EOutput @0x81c2f05a394cf4af {
-	vEgo @0 :Float32;         # 車速 [m/s]
-	steeringAngleDeg @1 :Float32; # 舵角 [deg]
+	aEgo @0 :Float32;           # 加速度指令
+	vEgo @1 :Float32;           # 速度指令
+	steeringAngleDeg @2 :Float32; # ステアリング角度指令
+	timestamp @3 :UInt64;       # 生成時刻（ナノ秒）
+	isValid @4 :Bool;           # 有効フラグ
+	vEgoPlans @5 :List(Float32); # 速度計画（10ステップ）
 }
 
 struct CustomReserved1 @0xaedffd8f31e7b55d {
