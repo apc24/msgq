@@ -2317,7 +2317,7 @@ struct Event {
     livestreamWideRoadEncodeData @121 :EncodeData;
     livestreamDriverEncodeData @122 :EncodeData;
 
-    customReservedRawData0 @124 :Data;
+    E2EOutput @124 :Data;
     customReservedRawData1 @125 :Data;
     customReservedRawData2 @126 :Data;
 
