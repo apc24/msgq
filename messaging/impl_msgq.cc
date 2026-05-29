@@ -147,21 +147,32 @@ MSGQSubSocket::~MSGQSubSocket(){
   }
 }
 
-int MSGQPubSocket::connect(Context *context, std::string endpoint, bool check_endpoint){
+int MSGQPubSocket::connect(Context *context, std::string endpoint, std::string address, bool check_endpoint){
   assert(context);
 
-  if (check_endpoint && !service_exists(std::string(endpoint))){
-    std::cout << "Warning, " << std::string(endpoint) << " is not in service list." << std::endl;
-  }
+  // if (check_endpoint && !service_exists(std::string(endpoint))){
+  //   std::cout << "Warning, " << std::string(endpoint) << " is not in service list." << std::endl;
+  // }
 
+  // q = new msgq_queue_t;
+  // int r = msgq_new_queue(q, endpoint.c_str(), DEFAULT_SEGMENT_SIZE);
+  // if (r != 0){
+  //   return r;
+  // }
+
+  // msgq_init_publisher(q);
+
+  // return 0;
+// addressは現状使われていないが、将来的な拡張や一貫性のため受け取る
+  if (check_endpoint && !service_exists(std::string(endpoint))){
+  std::cout << "Warning, " << std::string(endpoint) << " is not in service list." << std::endl;
+  }
   q = new msgq_queue_t;
   int r = msgq_new_queue(q, endpoint.c_str(), DEFAULT_SEGMENT_SIZE);
   if (r != 0){
-    return r;
+  return r;
   }
-
   msgq_init_publisher(q);
-
   return 0;
 }
 

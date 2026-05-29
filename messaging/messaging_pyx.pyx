@@ -224,7 +224,7 @@ cdef class PubSocket:
   def __dealloc__(self):
     del self.socket
 
-  def connect(self, Context context, string endpoint):
+  def connect(self, Context context, string endpoint, string address=b"192.168.1.51"):
     r = self.socket.connect(context.context, endpoint)
 
     if r != 0:

@@ -59,7 +59,7 @@ SubSocket * SubSocket::create(){
 
 SubSocket * SubSocket::create(Context * context, std::string endpoint, std::string address, bool conflate, bool check_endpoint){
   SubSocket *s = SubSocket::create();
-  int r = s->connect(context, endpoint, address, conflate, check_endpoint);
+  int r = s->connect(context, endpoint, "192.168.1.51", check_endpoint);
 
   if (r == 0) {
     return s;
@@ -84,7 +84,7 @@ PubSocket * PubSocket::create(){
 
 PubSocket * PubSocket::create(Context * context, std::string endpoint, bool check_endpoint){
   PubSocket *s = PubSocket::create();
-  int r = s->connect(context, endpoint, check_endpoint);
+  int r = s->connect(context, endpoint, "192.168.1.51", check_endpoint);
 
   if (r == 0) {
     return s;
