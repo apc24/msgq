@@ -56,7 +56,7 @@ MSGQMessage::~MSGQMessage() {
 
 int MSGQSubSocket::connect(Context *context, std::string endpoint, std::string address, bool conflate, bool check_endpoint){
   assert(context);
-  assert(address == "192.168.1.51");
+  // assert(address == "192.168.1.51");
 
   if (check_endpoint && !service_exists(std::string(endpoint))){
     std::cout << "Warning, " << std::string(endpoint) << " is not in service list." << std::endl;
