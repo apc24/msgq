@@ -55,14 +55,9 @@ def new_message(service: Optional[str], size: Optional[int] = None, **kwargs) ->
   return dat
 
 
-# def pub_sock(endpoint: str) -> PubSocket:
-#   sock = PubSocket()
-#   sock.connect(context, endpoint)
-#   return sock
-
-def pub_sock(endpoint: str, addr: str = "192.168.1.51") -> PubSocket:
+def pub_sock(endpoint: str) -> PubSocket:
   sock = PubSocket()
-  sock.connect(context, endpoint, addr.encode('utf8'))
+  sock.connect(context, endpoint)
   return sock
 
 
@@ -300,14 +295,10 @@ class SubMaster:
 
 
 class PubMaster:
-  # def __init__(self, services: List[str]):
-  #   self.sock = {}
-  #   for s in services:
-  #     self.sock[s] = pub_sock(s)
-  def __init__(self, services: List[str], addr: str = "127.0.0.1"):
+  def __init__(self, services: List[str]):
     self.sock = {}
     for s in services:
-      self.sock[s] = pub_sock(s, addr=addr)
+      self.sock[s] = pub_sock(s)
 
   def send(self, s: str, dat: Union[bytes, capnp.lib.capnp._DynamicStructBuilder]) -> None:
     if not isinstance(dat, bytes):

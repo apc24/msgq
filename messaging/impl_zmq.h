@@ -48,9 +48,7 @@ private:
   std::string full_endpoint;
   int pid = -1;
 public:
-  // int connect(Context *context, std::string endpoint, bool check_endpoint=true);
-  int connect(Context *context, std::string endpoint, std::string address = "192.168.1.51", bool check_endpoint=true);
-
+  int connect(Context *context, std::string endpoint, bool check_endpoint=true);
   int sendMessage(Message *message);
   int send(char *data, size_t size);
   bool all_readers_updated();

@@ -96,7 +96,7 @@ ZMQSubSocket::~ZMQSubSocket(){
   zmq_close(sock);
 }
 
-int ZMQPubSocket::connect(Context *context, std::string endpoint, std::string address, bool check_endpoint){
+int ZMQPubSocket::connect(Context *context, std::string endpoint, bool check_endpoint){
   sock = zmq_socket(context->getRawContext(), ZMQ_PUB);
   if (sock == NULL){
     return -1;
