@@ -25,6 +25,7 @@ struct E2EOutput @0x81c2f05a394cf4af {
 	vEgoPlans @5 :List(Float32); # 速度計画（10ステップ）
 }
 
+
 struct CustomReserved1 @0xaedffd8f31e7b55d {
 }
 
