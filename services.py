@@ -82,6 +82,7 @@ services: dict[str, tuple] = {
   "microphone": (True, 10., 10),
   "e2eOutput": (True, 10.),
 
+
   # debug
   "uiDebug": (True, 0., 1),
   "testJoystick": (True, 0.),
