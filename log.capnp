@@ -988,6 +988,7 @@ struct ModelDataV2 {
   struct Action {
     desiredCurvature @0 :Float32;
     useE2eOutput @1 :Bool;
+    desiredCurvatureOrigin @2 :Float32;
   }
 }
 
