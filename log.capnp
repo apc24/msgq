@@ -992,6 +992,7 @@ struct ModelDataV2 {
   }
 }
 
+
 struct EncodeIndex {
   # picture from camera
   frameId @0 :UInt32;
