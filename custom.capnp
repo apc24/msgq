@@ -23,6 +23,7 @@ struct E2EOutput @0x81c2f05a394cf4af {
 	timestamp @3 :UInt64;       # 生成時刻（ナノ秒）
 	isValid @4 :Bool;           # 有効フラグ
 	vEgoPlans @5 :List(Float32); # 速度計画（10ステップ）
+	desiredCurvature @6 :Float32; # 目標曲率
 }
 
 
